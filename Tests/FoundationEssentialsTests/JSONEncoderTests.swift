@@ -2008,6 +2008,24 @@ final class JSONEncoderTests : XCTestCase {
             }
         }
     }
+    
+    class KarimPerson : NSObject,Decodable {
+        var name : String?
+    }
+    
+    func testJSON() {
+        
+        var jsonStr = """
+
+"""
+        do{
+            if let data = jsonStr.data(using: String._Encoding.utf8) {
+                try JSONDecoder().decode(KarimPerson.self, from: data)
+            }
+        }catch{
+            
+        }
+    }
 }
 
 // MARK: - SnakeCase Tests
