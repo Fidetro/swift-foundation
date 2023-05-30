@@ -364,6 +364,7 @@ open class JSONDecoder {
     
     private func _decode<T>(_ unwrap: (JSONDecoderImpl, JSONMap.Value) throws -> T, from data: Data) throws -> T {
         do {
+            //先通过二进制缓存区前几位，判断是否是utf8编码，如果不是，转成utf8编码
             return try Self.withUTF8Representation(of: data) { utf8Buffer in
 
                 var impl: JSONDecoderImpl

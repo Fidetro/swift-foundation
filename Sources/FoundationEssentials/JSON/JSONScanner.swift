@@ -354,6 +354,7 @@ internal struct JSONScanner {
                 try self.scanObject(withoutBraces: true)
             }
         } else {
+            //判断是否是字符串、对象、数组、Bool、null
             try self.scanValue()
         }
 #if DEBUG
@@ -390,6 +391,8 @@ internal struct JSONScanner {
 
     mutating func scanValue() throws {
         let byte = try reader.consumeWhitespace()
+        
+        print(String.init(bytes: [byte], encoding: String.Encoding.utf8))
         switch byte {
         case ._quote:
             try scanString()
@@ -677,10 +680,12 @@ extension JSONScanner {
 
         @inline(__always)
         @discardableResult
+        //跳过空格、回车、换行、tab
         mutating func consumeWhitespace() throws -> UInt8 {
             assert(bytes.startIndex <= readIndex)
             while readIndex < endIndex {
                 let ascii = bytes[unchecked: readIndex]
+                print(String.init(bytes: [ascii], encoding: String.Encoding.utf8))
                 if Self.whitespaceBitmap & (1 << ascii) != 0 {
                     bytes.formIndex(after: &readIndex)
                     continue

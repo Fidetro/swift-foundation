@@ -2016,14 +2016,18 @@ final class JSONEncoderTests : XCTestCase {
     func testJSON() {
         
         var jsonStr = """
-
+    {
+"name":"karim",
+"sex":2
+1
+}
 """
         do{
             if let data = jsonStr.data(using: String._Encoding.utf8) {
                 try JSONDecoder().decode(KarimPerson.self, from: data)
             }
         }catch{
-            
+            XCTAssertTrue(false,error.localizedDescription)
         }
     }
 }
