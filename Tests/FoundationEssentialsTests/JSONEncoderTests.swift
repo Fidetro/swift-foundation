@@ -2015,14 +2015,17 @@ final class JSONEncoderTests : XCTestCase {
     
     func testJSON() {
         
-        var jsonStr =
-"""
-{
-"name":"karim",
-"sex":2
-}
-"""
-        self.measure {
+//        var jsonStr =
+//"""
+//{
+//"name":"karim",
+//"sex":2
+//}
+//"""
+        
+        var jsonStr = "{\"name\":\"\\\"karim\\\"\",\"sex\":2}"
+
+//        self.measure {
             do{
                 if let data = jsonStr.data(using: String._Encoding.utf8) {
                     try JSONDecoder().decode(KarimPerson.self, from: data)
@@ -2031,7 +2034,7 @@ final class JSONEncoderTests : XCTestCase {
                 XCTAssertTrue(false,error.localizedDescription)
             }
         }
-    }
+//    }
 }
 
 // MARK: - SnakeCase Tests
