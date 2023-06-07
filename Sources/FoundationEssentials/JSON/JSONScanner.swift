@@ -392,7 +392,6 @@ internal struct JSONScanner {
     mutating func scanValue() throws {
         let byte = try reader.consumeWhitespace()
         
-        print(String.init(bytes: [byte], encoding: String.Encoding.utf8))
         switch byte {
         case ._quote:
             try scanString()
@@ -685,7 +684,6 @@ extension JSONScanner {
             assert(bytes.startIndex <= readIndex)
             while readIndex < endIndex {
                 let ascii = bytes[unchecked: readIndex]
-                print(String.init(bytes: [ascii], encoding: String.Encoding.utf8))
                 if Self.whitespaceBitmap & (1 << ascii) != 0 {
                     bytes.formIndex(after: &readIndex)
                     continue

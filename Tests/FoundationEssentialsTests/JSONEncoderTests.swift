@@ -1174,14 +1174,14 @@ final class JSONEncoderTests : XCTestCase {
     }
 
     func test_equivalentUTF8Sequences() {
-        let json =
+        let jsonstr =
 """
 {
   "caf\\u00e9" : true,
   "cafe\\u0301" : false
 }
-""".data(using: String._Encoding.utf8)!
-
+"""
+            let json = jsonstr.data(using: String._Encoding.utf8)!
         do {
             let dict = try JSONDecoder().decode([String:Bool].self, from: json)
             XCTAssertEqual(dict.count, 1)
